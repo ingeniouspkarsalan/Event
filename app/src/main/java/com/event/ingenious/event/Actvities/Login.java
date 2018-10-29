@@ -56,7 +56,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(password.getText().toString())){
                     String token=SharedPrefManager.getInstance(Login.this).getDeviceToken();
-                    Toasty.success(Login.this,"ab "+token,Toast.LENGTH_SHORT).show();
+
                     sign_in(email.getText().toString(),password.getText().toString(),token );
                 }else{
                     email.setError("Not Empty");

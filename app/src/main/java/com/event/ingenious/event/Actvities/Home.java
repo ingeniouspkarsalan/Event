@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.R;
 
 public class Home extends AppCompatActivity
@@ -51,7 +52,10 @@ public class Home extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+            Animation.fade(Home.this);
+            System.exit(1);
         }
+
     }
 
     @Override
@@ -100,4 +104,5 @@ public class Home extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }

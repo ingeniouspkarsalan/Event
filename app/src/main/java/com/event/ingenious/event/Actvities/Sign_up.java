@@ -61,7 +61,6 @@ public class Sign_up extends AppCompatActivity {
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(email.getText().toString()) && !TextUtils.isEmpty(password.getText().toString()) && !TextUtils.isEmpty(contact.getText().toString()) && !TextUtils.isEmpty(name.getText().toString())){
                     String token=SharedPrefManager.getInstance(Sign_up.this).getDeviceToken();
-                    Toasty.success(Sign_up.this,"ab "+token,Toast.LENGTH_SHORT).show();
                     sign_up(name.getText().toString(),contact.getText().toString(),email.getText().toString(),password.getText().toString(), token);
                 }else{
                     name.setError("Not Empty");
@@ -154,6 +153,5 @@ public class Sign_up extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         Animation.fade(Sign_up.this);
-        System.exit(1);
     }
 }
