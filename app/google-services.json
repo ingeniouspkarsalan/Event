@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "860254313326",
+    "firebase_url": "https://event-3fd78.firebaseio.com",
+    "project_id": "event-3fd78",
+    "storage_bucket": "event-3fd78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860254313326:android:c840c20cda0bfff0",
+        "android_client_info": {
+          "package_name": "com.event.ingenious.event"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860254313326-sfcfurb9tr7k7flnf6s4uiuku9a1kfiq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_z2LMT1ZZgdfUDPBBbaGyfd0pJHqQ6_g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
