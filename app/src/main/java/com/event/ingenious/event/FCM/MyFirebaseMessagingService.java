@@ -1,7 +1,6 @@
 package com.event.ingenious.event.FCM;
 
 import android.app.ActivityManager;
-import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ComponentName;
@@ -12,13 +11,9 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.LocalBroadcastManager;
 import android.text.Html;
-import android.util.Log;
 
-import com.event.ingenious.event.Actvities.Home;
 import com.event.ingenious.event.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
