@@ -53,6 +53,7 @@ public class Home extends AppCompatActivity
         } else {
             super.onBackPressed();
             Animation.fade(Home.this);
+            moveTaskToBack(true);
             System.exit(1);
         }
 

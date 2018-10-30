@@ -21,6 +21,7 @@ public class Splash extends AppCompatActivity {
             //start activity..
             Intent intent = new Intent(Splash.this,Home.class);
             startActivity(intent);
+            finish();
         }
 
         findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
@@ -28,7 +29,6 @@ public class Splash extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(Splash.this,Login.class));
                 Animation.fade(Splash.this);
-                finish();
             }
         });
 
@@ -36,7 +36,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Splash.this,Sign_up.class));
-                Animation.shrink(Splash.this);
+                Animation.fade(Splash.this);
             }
         });
     }
