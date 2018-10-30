@@ -49,12 +49,37 @@ public class Create_Event extends AppCompatActivity {
         ev_date =  findViewById(R.id.evt_date);
         ev_str_time =  findViewById(R.id.ev_strt_time);
         ev_des =  findViewById(R.id.evt_detail);
-        ev_end_time =  findViewById(R.id.evt_detail);
+        ev_end_time =  findViewById(R.id.ev_end_time);
         ev_category = findViewById(R.id.evt_cate);
 
         cat_names=new ArrayList<>();
         //Load category in Spiner
         load_category_for_spiner();
+
+
+        // Set Date Picker Listner
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                ev_date_picker.set(Calendar.YEAR, year);
+                ev_date_picker.set(Calendar.MONTH, monthOfYear);
+                ev_date_picker.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+
+        ev_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(Create_Event.this, date, ev_date_picker
+                        .get(Calendar.YEAR), ev_date_picker.get(Calendar.MONTH),
+                        ev_date_picker.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
 
        //  Set on Click Listner On Time Form
@@ -125,19 +150,7 @@ public class Create_Event extends AppCompatActivity {
 
 
 
-    // Set Date Picker Listner
-    final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            // TODO Auto-generated method stub
-            ev_date_picker.set(Calendar.YEAR, year);
-            ev_date_picker.set(Calendar.MONTH, monthOfYear);
-            ev_date_picker.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        }
 
-    };
 
     //set into date textview
     private void updateLabel() {
