@@ -1,109 +1,65 @@
 package com.event.ingenious.event.Actvities;
 
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Bundle;
 
 import com.event.ingenious.event.Classes.Animation;
+import com.event.ingenious.event.Fragement_activity_classes.Event_profile_fragment;
+import com.event.ingenious.event.Fragement_activity_classes.News_Fragment;
+import com.event.ingenious.event.Fragement_activity_classes.Premium_Fragment;
+import com.event.ingenious.event.Fragement_activity_classes.Trending_Fragment;
+import com.event.ingenious.event.FragmentAdaptor.Tablayout_Fragment;
 import com.event.ingenious.event.R;
 
-public class Home extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
+public class Home extends AppCompatActivity {
+    private TabLayout tabLayout;
+    private int[] tabIcons = {
+            R.drawable.premium,
+            R.drawable.trending,
+            R.drawable.news,
+            R.drawable.profile
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Init();
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    private void Init() {
+        tabLayout=(TabLayout) findViewById(R.id.tabLayout);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.view_pager);
+        if (viewPager != null) {
+            setupViewPager(viewPager);
+        }
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+    }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
+    private void setupTabIcons() {
+        tabLayout.getTabAt(0).setIcon(tabIcons[0]);
+        tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        Tablayout_Fragment adapter = new Tablayout_Fragment(getSupportFragmentManager());
+        adapter.addFragment(new Premium_Fragment(), "Premium");
+        adapter.addFragment(new Trending_Fragment(), "Trending");
+        adapter.addFragment(new News_Fragment(), "News");
+        adapter.addFragment(new Event_profile_fragment(), "Profile");
+        viewPager.setAdapter(adapter);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-            Animation.fade(Home.this);
-            moveTaskToBack(true);
-            System.exit(1);
-        }
-
+        super.onBackPressed();
+        Animation.fade(Home.this);
+        moveTaskToBack(true);
+        System.exit(1);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
 }

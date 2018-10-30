@@ -51,10 +51,17 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".Actvities.Home"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Actvities.Home" />
+        <activity android:name=".Fragement_activity_classes.Premium_Fragment" />
+        <activity android:name=".Fragement_activity_classes.Trending_Fragment">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Fragement_activity_classes.Event_profile_fragment" />
+        <activity android:name=".Fragement_activity_classes.News_Fragment"></activity>
     </application>
 
 </manifest>
