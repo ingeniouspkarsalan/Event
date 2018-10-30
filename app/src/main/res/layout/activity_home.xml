@@ -21,10 +21,13 @@
             >
             <EditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white"
+                android:layout_height="40dp"
+                android:background="@drawable/category_style"
                 android:hint="Search"
-                android:drawableLeft="@android:drawable/ic_search_category_default"/>
+                android:textColor="@color/white"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:drawableRight="@drawable/ic_search_black_24dp"/>
         </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
