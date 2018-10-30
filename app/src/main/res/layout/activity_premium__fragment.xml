@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragement_activity_classes.Premium_Fragment">
 
-</android.support.constraint.ConstraintLayout>
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_child_count="10" />
+
+</RelativeLayout>
