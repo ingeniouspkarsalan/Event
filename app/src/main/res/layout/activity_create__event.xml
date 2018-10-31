@@ -37,12 +37,11 @@
             app:shape_circle_borderColor="@color/colorPrimaryDark"
             app:shape_circle_borderWidth="4dp">
 
-            <!-- YOUR CONTENT -->
-
             <ImageView
                 android:id="@+id/logo_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_launcher" />
         </com.github.florent37.shapeofview.shapes.ArcView>
 
@@ -56,17 +55,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Event Title"
-                    android:textAllCaps="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/ev_title"
@@ -81,20 +69,9 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:inputType="text"
+                    android:hint="Event Title"
                     android:maxLength="3"
                     android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Choose Category"
-                    android:textAllCaps="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
 
                 <Spinner
                     android:id="@+id/evt_cate"
@@ -109,106 +86,11 @@
                     android:layout_marginRight="10dp">
                 </Spinner>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Event Date"
-                    android:textAllCaps="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/evt_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/booking_edit_text_style"
-                    android:fontFamily="sans-serif-light"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:focusable="false"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:inputType="date"
-                    android:textSize="15sp" />
-
-                <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-light"
-                android:text="Start Time"
-                android:textAllCaps="true"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textColor="#000"
-                android:textSize="18sp" />
-
-                <EditText
-                android:id="@+id/ev_strt_time"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/booking_edit_text_style"
-                android:fontFamily="sans-serif-light"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:focusable="false"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:inputType="time"
-                android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="End Time"
-                    android:textAllCaps="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
-
-                <EditText
-                    android:id="@+id/ev_end_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/booking_edit_text_style"
-                    android:fontFamily="sans-serif-light"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:focusable="false"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:inputType="time"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="Event Detail"
-                    android:textAllCaps="true"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:textColor="#000"
-                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/evt_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/booking_edit_text_style"
@@ -218,7 +100,72 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:inputType="textMultiLine"
+                    android:hint="Event Description"
                     android:textSize="15sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/evt_date"
+                            android:text="Select Date"
+                            android:textSize="21sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/show_evt_date"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ev_strt_time"
+                            android:text="Start Time"
+                            android:textSize="21sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/show_ev_strt_time"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/ev_end_time"
+                            android:text="Start Time"
+                            android:textSize="21sp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/show_ev_end_time"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+                </LinearLayout>
 
 
                 <Button
