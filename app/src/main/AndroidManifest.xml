@@ -29,10 +29,12 @@
         </activity>
         <activity
             android:name=".Actvities.Login"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".Actvities.Sign_up"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
         <!-- adding fcm services for token -->
         <service android:name=".FCM.MyFirebaseInstanceIDService">
@@ -46,18 +48,25 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Actvities.Home" />
-        <activity android:name=".Fragement_activity_classes.Premium_Fragment" />
-        <activity android:name=".Fragement_activity_classes.Trending_Fragment">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".Actvities.Home"
+android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".Fragement_activity_classes.Premium_Fragment"
+android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".Fragement_activity_classes.Trending_Fragment"
+android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Fragement_activity_classes.Event_profile_fragment" />
-        <activity android:name=".Fragement_activity_classes.News_Fragment" />
-        <activity android:name=".Actvities.Create_Event"></activity>
+        <activity android:name=".Fragement_activity_classes.Event_profile_fragment"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".Fragement_activity_classes.News_Fragment"
+android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".Actvities.Create_Event"
+android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>

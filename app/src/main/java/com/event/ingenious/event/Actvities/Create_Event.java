@@ -5,11 +5,14 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.media.Image;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,12 +20,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.model.Image;
 import com.event.ingenious.event.AppUtils.Endpoints;
 import com.event.ingenious.event.AppUtils.Utils;
 import com.event.ingenious.event.Classes.Animation;
@@ -31,6 +37,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.pixplicity.easyprefs.library.Prefs;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +62,8 @@ public class Create_Event extends AppCompatActivity {
     ArrayList<String> cat_names;
 
     private String photoPath = "";
-
+    LinearLayout freezlayout;
+    AVLoadingIndicatorView avi;
 
     public static final int PICK_IMAGE = 1;
     @SuppressLint("NewApi")
@@ -73,6 +81,9 @@ public class Create_Event extends AppCompatActivity {
 
     private void Init() {
 
+        freezlayout=findViewById(R.id.freezlayout);
+        avi=findViewById(R.id.avi);
+
         ev_date_picker = Calendar.getInstance();
         ev_title =  findViewById(R.id.ev_title);
         ev_date =  findViewById(R.id.evt_date);
@@ -85,15 +96,18 @@ public class Create_Event extends AppCompatActivity {
         show_ev_str_time =  findViewById(R.id.show_ev_strt_time);
         show_ev_end_time =  findViewById(R.id.show_ev_end_time);
 
+
         imagebanner=findViewById(R.id.logo_image);
 
         imagebanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+                ImagePicker.create(Create_Event.this) // Activity or Fragment
+                        .folderMode(true) // folder mode (false by default)
+                        .toolbarFolderTitle("Select Image") // folder selection title
+                        .toolbarImageTitle("Tap to select") // image selection title
+                        .single() // single mode
+                        .start();
             }
         });
 
@@ -184,8 +198,17 @@ public class Create_Event extends AppCompatActivity {
         ev_cre_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!TextUtils.isEmpty(ev_title.getText().toString()) && !TextUtils.isEmpty(ev_des.getText().toString()) && !TextUtils.isEmpty(show_ev_date.getText().toString()) &&
+                        !TextUtils.isEmpty(show_ev_str_time.getText().toString()) && !TextUtils.isEmpty(show_ev_end_time.getText().toString()) && !TextUtils.isEmpty(photoPath.toString()) &&
+                        !TextUtils.isEmpty(ev_title.getText().toString()) && !TextUtils.isEmpty(ev_title.getText().toString()) && !TextUtils.isEmpty(ev_title.getText().toString()))
+                {
 
-               // creating_event();
+                    creating_event(ev_title.getText().toString(),ev_des.getText().toString(),show_ev_date.getText().toString(),show_ev_str_time.getText().toString()
+                    ,show_ev_end_time.getText().toString(),"","","",ev_category.getSelectedItem().toString(),photoPath);
+                }else{
+                    Toasty.success(Create_Event.this,"Fill all fields",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -195,10 +218,12 @@ public class Create_Event extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     try {
-        if(requestCode == PICK_IMAGE){
-            Uri uri=data.getData();
-            photoPath=uri.getPath();
-            imagebanner.setImageURI(uri);
+        if (ImagePicker.shouldHandle(requestCode, resultCode, data))
+        {
+            Image image = ImagePicker.getFirstImageOrNull(data);
+            photoPath = image.getPath();
+            Bitmap bmImg = BitmapFactory.decodeFile(photoPath);
+            imagebanner.setImageBitmap(bmImg);
         }
     }catch (Exception e){
 
@@ -226,7 +251,7 @@ public class Create_Event extends AppCompatActivity {
     }
 
 
-    private void creating_event(String tit,String des,String date, String s_time,String address,String latit,String longti,String cate)
+    private void creating_event(String tit,String des,String date, String s_time,String end_time,String address,String latit,String longti,String cate,String photo)
     {
         String id= Prefs.getPreferences().getString("user_id","");
         AsyncHttpClient client = new AsyncHttpClient();
@@ -236,22 +261,26 @@ public class Create_Event extends AppCompatActivity {
         params.put("ev_desc",des);
         params.put("ev_date",date);
         params.put("ev_start_time",s_time);
+        params.put("ev_end_time",end_time);
         params.put("ev_address",address);
         params.put("ev_latitude",latit);
         params.put("ev_longitude",longti);
         params.put("ev_category",cate);
         params.put("ev_create_by",id);
         try{
-        params.put("file_name",new File(photoPath));
+
+        params.put("file_name",new File(photo));
+
         }catch (Exception e){}
+
         client.post(Endpoints.ip_server, params, new AsyncHttpResponseHandler()
         {
             @Override
             public void onStart()
             {
                 super.onStart();
-//                freezelayout.setEnabled(false);
-//                avi.show();
+                freezlayout.setEnabled(false);
+                avi.show();
             }
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -269,8 +298,8 @@ public class Create_Event extends AppCompatActivity {
                             Animation.slideUp(Create_Event.this);
 
                         }else {
-//                            freezelayout.setEnabled(true);
-//                            avi.smoothToHide();
+                            freezlayout.setEnabled(true);
+                            avi.smoothToHide();
                             new SweetAlertDialog(Create_Event.this, SweetAlertDialog.ERROR_TYPE)
                                     .setTitleText("Oops...")
                                     .setContentText(object.getString("message"))
@@ -298,11 +327,14 @@ public class Create_Event extends AppCompatActivity {
             @Override
             public void onFinish() {
                 super.onFinish();
-//                avi.smoothToHide();
-//                freezelayout.setEnabled(true);
+                avi.smoothToHide();
+                freezlayout.setEnabled(true);
             }
 
 
         });
     }
+
+
+
 }

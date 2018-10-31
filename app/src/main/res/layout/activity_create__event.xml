@@ -33,6 +33,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:elevation="4dp"
             app:shape_circle_borderColor="@color/colorPrimaryDark"
             app:shape_circle_borderWidth="4dp">
@@ -42,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher" />
+                android:src="@drawable/ic_add_a_photo_black_24dp" />
         </com.github.florent37.shapeofview.shapes.ArcView>
 
 
@@ -54,7 +55,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/freezlayout">
 
                 <EditText
                     android:id="@+id/ev_title"
@@ -182,6 +187,17 @@
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
+</LinearLayout>
+                <com.wang.avi.AVLoadingIndicatorView
+                    android:id="@+id/avi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/AVLoadingIndicatorView"
+                    android:layout_gravity="center_horizontal"
+                    app:indicatorName="BallPulseIndicator"
+                    app:indicatorColor="@color/colorPrimaryDark"
+                    android:visibility="gone"
+                    />
 
             </LinearLayout>
 

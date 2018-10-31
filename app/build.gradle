@@ -40,4 +40,5 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.2.0'
     implementation 'com.github.florent37:shapeofview:v1.0.7'
     implementation 'com.android.support:cardview-v7:27.1.1'
+    implementation 'com.github.esafirm.android-image-picker:rximagepicker:1.13.0'
 }
