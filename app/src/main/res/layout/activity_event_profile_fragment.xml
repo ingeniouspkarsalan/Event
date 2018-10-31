@@ -46,8 +46,10 @@
             android:id="@+id/tv_edit_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit Profile"
+            android:text="Edit Profile "
+            android:drawableRight="@drawable/ic_edit_black_24dp"
             android:textSize="18sp"
+            android:padding="5dp"
             android:textAlignment="center" />
     </LinearLayout>
 

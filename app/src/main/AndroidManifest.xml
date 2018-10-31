@@ -54,28 +54,35 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Actvities.Home"
+        <activity
+            android:name=".Actvities.Home"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".Fragement_activity_classes.Premium_Fragment"
+        <activity
+            android:name=".Fragement_activity_classes.Premium_Fragment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".Fragement_activity_classes.Trending_Fragment"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <activity android:name=".Fragement_activity_classes.Event_profile_fragment"
+        <activity
+            android:name=".Fragement_activity_classes.Trending_Fragment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".Fragement_activity_classes.News_Fragment"
+        <activity
+            android:name=".Fragement_activity_classes.Event_profile_fragment"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".Actvities.Create_Event"
+        <activity
+            android:name=".Fragement_activity_classes.News_Fragment"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".Actvities.My_Event"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".Actvities.Create_Event"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".Actvities.My_Event"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name=".Actvities.Edit_Profile_act"></activity>
     </application>
 
 </manifest>

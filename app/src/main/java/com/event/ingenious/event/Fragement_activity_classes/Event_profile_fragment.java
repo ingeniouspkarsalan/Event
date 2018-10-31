@@ -46,6 +46,12 @@ public class Event_profile_fragment extends Fragment {
                 Animation.fade(getContext());
             }
         });
+        rv.findViewById(R.id.tv_edit_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return rv;
     }
 }

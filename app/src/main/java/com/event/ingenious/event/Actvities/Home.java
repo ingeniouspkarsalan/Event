@@ -19,7 +19,8 @@ public class Home extends AppCompatActivity {
             R.drawable.premium,
             R.drawable.trending,
             R.drawable.news,
-            R.drawable.profile
+            R.drawable.profile,
+            R.drawable.ic_wifi_tethering_black_24dp
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,8 @@ public class Home extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        tabLayout.getTabAt(3).setIcon(tabIcons[4]);
+        tabLayout.getTabAt(4).setIcon(tabIcons[3]);
 
     }
 
@@ -50,6 +52,7 @@ public class Home extends AppCompatActivity {
         Tablayout_Fragment adapter = new Tablayout_Fragment(getSupportFragmentManager());
         adapter.addFragment(new Premium_Fragment(), "Premium");
         adapter.addFragment(new Trending_Fragment(), "Trending");
+        adapter.addFragment(new Trending_Fragment(), "Live");
         adapter.addFragment(new News_Fragment(), "News");
         adapter.addFragment(new Event_profile_fragment(), "Profile");
         viewPager.setAdapter(adapter);
