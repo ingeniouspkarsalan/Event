@@ -102,7 +102,7 @@ public class Create_Event extends AppCompatActivity {
                         }
                         ev_str_time.setText( selectedHour + ":" + selectedMinute + ":" + AM_PM);
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, false);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
             }
@@ -127,7 +127,7 @@ public class Create_Event extends AppCompatActivity {
                         }
                         ev_end_time.setText( selectedHour + ":" + selectedMinute + ":" + AM_PM);
                     }
-                }, hour, minute, true);//Yes 24 hour time
+                }, hour, minute, false);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
             }

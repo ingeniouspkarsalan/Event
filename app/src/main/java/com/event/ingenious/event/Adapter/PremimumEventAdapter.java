@@ -9,12 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.event.ingenious.event.Classes.Premimum_Event_Class;
 import com.event.ingenious.event.R;
 
 import java.util.List;
+
+import es.dmoral.toasty.Toasty;
 
 public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdapter.PEViewHolder>
 {
@@ -68,8 +71,11 @@ public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdap
         holder.ev_address.setText(premimumEventClass.getEv_address());
         holder.ev_date.setText(premimumEventClass.getEv_date());
         holder.ev_desc.setText(premimumEventClass.getEv_desc());
-
-
-
+        holder.for_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toasty.success(context,premimumEventClass.getEv_id(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
