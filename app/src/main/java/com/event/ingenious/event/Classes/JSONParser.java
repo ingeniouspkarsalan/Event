@@ -10,6 +10,7 @@ import java.util.List;
 public class JSONParser
 {
     static List<Premimum_Event_Class> premimum_event_classList;
+    static List<MyEventClass> myEventClassList;
 
     public static List<Premimum_Event_Class> prese_premimum_event(String content)
     {
@@ -46,5 +47,35 @@ public class JSONParser
             return null;
         }
 
+    }
+
+    public static List<MyEventClass> prese_my_event(String content)
+    {
+        JSONArray jsonArray = null;
+        MyEventClass myEventClass = null;
+        try
+        {
+            jsonArray = new JSONArray(content);
+            myEventClassList = new ArrayList<>();
+            for(int i = 0; i < jsonArray.length(); i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                myEventClass = new MyEventClass();
+
+                myEventClass.setEv_id(jsonObject.getString("ev_id"));
+                myEventClass.setEv_title(jsonObject.getString("ev_title"));
+                myEventClass.setEv_category(jsonObject.getString("ev_category"));
+                myEventClass.setEv_address(jsonObject.getString("ev_address"));
+                myEventClass.setEv_date(jsonObject.getString("ev_date"));
+                myEventClass.setEv_image(jsonObject.getString("ev_image"));
+
+                myEventClassList.add(myEventClass);
+            }
+            return myEventClassList;
+        }
+        catch (JSONException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 }
