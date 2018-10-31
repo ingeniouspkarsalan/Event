@@ -58,7 +58,7 @@ public class Trending_Fragment extends Fragment {
                     Toasty.warning(getContext(), "Trending Event not available.", Toast.LENGTH_LONG).show();
                 } else {
                     premimum_event_classList = JSONParser.prese_premimum_event(response);
-                    premimumEventAdapter = new PremimumEventAdapter(getContext(), premimum_event_classList);
+                    premimumEventAdapter = new PremimumEventAdapter(getContext(), premimum_event_classList,"Trending");
                     recyclerView.setAdapter(premimumEventAdapter);
 //                    recyclerView.setLayoutManager(new GridLayoutManager(Home.this,1));
                     LinearLayoutManager llm = new LinearLayoutManager(getContext());

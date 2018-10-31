@@ -23,10 +23,12 @@ public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdap
 {
     private Context context;
     private List<Premimum_Event_Class> premimum_event_classList;
+    private String Value;
 
-    public PremimumEventAdapter(Context context, List<Premimum_Event_Class> premimum_event_classList) {
+    public PremimumEventAdapter(Context context, List<Premimum_Event_Class> premimum_event_classList,String Value) {
         this.context = context;
         this.premimum_event_classList = premimum_event_classList;
+        this.Value=Value;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdap
 
     class PEViewHolder extends RecyclerView.ViewHolder {
         CardView for_click;
-        ImageView banner_image;
+        ImageView banner_image,feature_image;
         TextView ev_title, ev_category, ev_address, ev_date, ev_desc;
 
         public PEViewHolder(View itemView)
@@ -56,6 +58,10 @@ public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdap
             ev_address = (TextView) itemView.findViewById(R.id.ev_address);
             ev_date = (TextView) itemView.findViewById(R.id.ev_date);
             ev_desc = (TextView) itemView.findViewById(R.id.ev_desc);
+            feature_image= itemView.findViewById(R.id.feature_image);
+            if(Value.equals("Premium")){
+                feature_image.setVisibility(View.VISIBLE);
+            }
         }
     }
 
