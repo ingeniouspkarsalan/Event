@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".Fragement_activity_classes.Event_profile_fragment">
 
     <LinearLayout
@@ -63,7 +64,7 @@
             android:layout_marginStart="13dp"
             android:elevation="4dp"
             app:shape_circle_borderColor="@color/colorPrimaryDark"
-            app:shape_circle_borderWidth="1dp">
+            app:shape_circle_borderWidth="2dp">
 
             <!-- YOUR CONTENT -->
 
@@ -95,7 +96,7 @@
             android:layout_centerHorizontal="true"
             android:elevation="4dp"
             app:shape_circle_borderColor="@color/colorPrimaryDark"
-            app:shape_circle_borderWidth="1dp">
+            app:shape_circle_borderWidth="2dp">
 
             <!-- YOUR CONTENT -->
 

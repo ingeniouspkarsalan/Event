@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.event.ingenious.event.Actvities.Create_Event;
+import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.R;
 
 
@@ -24,12 +25,13 @@ public class Event_profile_fragment extends Fragment {
         View rv =  inflater.inflate(
                 R.layout.activity_event_profile_fragment, container, false);
 
-//        rv.findViewById(R.id.create_event).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getContext(), Create_Event.class));
-//            }
-//        });
+        rv.findViewById(R.id.shape_create_event).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), Create_Event.class));
+                Animation.fade(getContext());
+            }
+        });
         return rv;
     }
 }
