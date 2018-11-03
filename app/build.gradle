@@ -41,4 +41,12 @@ dependencies {
     implementation 'com.github.florent37:shapeofview:v1.0.7'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.github.esafirm.android-image-picker:rximagepicker:1.13.0'
+    implementation 'com.google.android.gms:play-services-base:+'
+    implementation 'com.google.android.gms:play-services-location:+'
+    implementation 'com.google.android.gms:play-services-maps:+'
+    implementation 'com.google.android.gms:play-services-auth:+'
+    implementation 'com.google.android.gms:play-services-places:+'
+    implementation 'com.github.aliumujib:Nibo:2.0'
+
+
 }
