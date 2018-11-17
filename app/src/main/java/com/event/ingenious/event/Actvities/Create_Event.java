@@ -86,7 +86,6 @@ public class Create_Event extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-                
                 try {
                     // for activty
                     startActivityForResult(builder.build(Create_Event.this), PLACE_PICKER_REQUEST);
