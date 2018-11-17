@@ -75,7 +75,6 @@
                     android:layout_marginRight="10dp"
                     android:inputType="text"
                     android:hint="Event Title"
-                    android:maxLength="3"
                     android:textSize="15sp" />
 
                 <Spinner
