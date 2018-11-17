@@ -7,8 +7,6 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +31,8 @@ import com.event.ingenious.event.AppUtils.Endpoints;
 import com.event.ingenious.event.AppUtils.Utils;
 import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.R;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -52,7 +52,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 import es.dmoral.toasty.Toasty;
 
-public class Create_Event extends AppCompatActivity {
+public class Create_Event extends AppCompatActivity  {
     EditText ev_title, ev_des;
     TextView ev_date,  ev_str_time, ev_end_time,show_ev_date,  show_ev_str_time, show_ev_end_time;
     Spinner ev_category;
@@ -66,6 +66,11 @@ public class Create_Event extends AppCompatActivity {
     AVLoadingIndicatorView avi;
 
     public static final int PICK_IMAGE = 1;
+    private final static int PLACE_PICKER_REQUEST = 999;
+    TextView address;
+    String placeName="";
+    double latitude =0;
+    double longitude=0;
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +80,22 @@ public class Create_Event extends AppCompatActivity {
         toolbar.setTitle("Create Event Form");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        address=findViewById(R.id.show_add);
         Init();
+        address.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    // for activty
+                    startActivityForResult(builder.build(Create_Event.this), PLACE_PICKER_REQUEST);
+                    // for fragment
+                    //startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void Init() {
@@ -204,7 +223,7 @@ public class Create_Event extends AppCompatActivity {
                 {
 
                     creating_event(ev_title.getText().toString(),ev_des.getText().toString(),show_ev_date.getText().toString(),show_ev_str_time.getText().toString()
-                    ,show_ev_end_time.getText().toString(),"","","",ev_category.getSelectedItem().toString(),photoPath);
+                    ,show_ev_end_time.getText().toString(),placeName,latitude,longitude,ev_category.getSelectedItem().toString(),photoPath);
                 }else{
                     Toasty.success(Create_Event.this,"Fill all fields",Toast.LENGTH_SHORT).show();
                 }
@@ -225,6 +244,19 @@ public class Create_Event extends AppCompatActivity {
             Bitmap bmImg = BitmapFactory.decodeFile(photoPath);
             imagebanner.setImageBitmap(bmImg);
         }
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case PLACE_PICKER_REQUEST:
+                    Place place = PlacePicker.getPlace(this, data);
+                     placeName = String.format("%s", place.getName());
+                     latitude = place.getLatLng().latitude;
+                     longitude = place.getLatLng().longitude;
+                     address.setText(" "+placeName);
+            }
+        }
+
+
     }catch (Exception e){
 
     }
@@ -251,7 +283,7 @@ public class Create_Event extends AppCompatActivity {
     }
 
 
-    private void creating_event(String tit,String des,String date, String s_time,String end_time,String address,String latit,String longti,String cate,String photo)
+    private void creating_event(String tit,String des,String date, String s_time,String end_time,String address,double latit,double longti,String cate,String photo)
     {
         String id= Prefs.getPreferences().getString("user_id","");
         AsyncHttpClient client = new AsyncHttpClient();
@@ -334,6 +366,7 @@ public class Create_Event extends AppCompatActivity {
 
         });
     }
+
 
 
 
