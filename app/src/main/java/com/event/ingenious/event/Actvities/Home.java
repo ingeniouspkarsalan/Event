@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.Fragement_activity_classes.Event_profile_fragment;
+import com.event.ingenious.event.Fragement_activity_classes.Map_fragment;
 import com.event.ingenious.event.Fragement_activity_classes.News_Fragment;
 import com.event.ingenious.event.Fragement_activity_classes.Premium_Fragment;
 import com.event.ingenious.event.Fragement_activity_classes.Trending_Fragment;
@@ -16,6 +17,7 @@ import com.event.ingenious.event.R;
 public class Home extends AppCompatActivity {
     private TabLayout tabLayout;
     private int[] tabIcons = {
+            R.drawable.ic_map_black_24dp,
             R.drawable.premium,
             R.drawable.trending,
             R.drawable.ic_wifi_tethering_black_24dp,
@@ -45,11 +47,13 @@ public class Home extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
         tabLayout.getTabAt(3).setIcon(tabIcons[3]);
         tabLayout.getTabAt(4).setIcon(tabIcons[4]);
+        tabLayout.getTabAt(5).setIcon(tabIcons[5]);
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         Tablayout_Fragment adapter = new Tablayout_Fragment(getSupportFragmentManager());
+        adapter.addFragment(new Map_fragment(), "Map");
         adapter.addFragment(new Premium_Fragment(), "Premium");
         adapter.addFragment(new Trending_Fragment(), "Trending");
         adapter.addFragment(new Trending_Fragment(), "Live");

@@ -100,7 +100,8 @@
 
         <activity
             android:name=".Map.MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".Fragement_activity_classes.Map_fragment"></activity>
     </application>
 
 </manifest>
