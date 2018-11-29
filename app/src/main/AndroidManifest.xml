@@ -84,6 +84,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".Actvities.Edit_Profile_act" />
+        <activity android:name=".Actvities.Event_detail" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

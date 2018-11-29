@@ -82,12 +82,12 @@ public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdap
         holder.for_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent i = new Intent(context, Event_detail.class);
-//                i.putExtra("event_id",premimumEventClass.getEv_id());
-//                i.putExtra("event_name",premimumEventClass.getEv_title());
-//                i.putExtra("event_image",premimumEventClass.getEv_image());
-//                context.startActivity(i);
-//                Animation.fade(context);
+                Intent i = new Intent(context, Event_detail.class);
+                i.putExtra("event_id",premimumEventClass.getEv_id());
+                i.putExtra("event_name",premimumEventClass.getEv_title());
+                i.putExtra("event_image",premimumEventClass.getEv_image());
+                context.startActivity(i);
+                Animation.fade(context);
             }
         });
     }
