@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/s2"
+    android:background="@drawable/b1"
     android:orientation="vertical"
     tools:context=".Actvities.Splash">
 
@@ -17,10 +17,10 @@
 
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="100dp"
             android:src="@drawable/logo"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="100dp"
             android:padding="10dp"/>
 
         <LinearLayout
