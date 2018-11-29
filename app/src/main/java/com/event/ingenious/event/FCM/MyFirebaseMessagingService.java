@@ -100,6 +100,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setSound(alarmSound)
                 .setStyle(bigPictureStyle)
                 .setVibrate(new long[] { 1000, 1000})
+                .setChannelId("event")
                 .setContentIntent(pendingIntent);
 
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
