@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:+'
     implementation 'com.google.android.gms:play-services-auth:+'
     implementation 'com.google.android.gms:play-services-places:+'
+    implementation 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
 
 
 }

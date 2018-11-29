@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.event.ingenious.event.Actvities.Event_detail;
+import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.Classes.Premimum_Event_Class;
 import com.event.ingenious.event.R;
 
@@ -66,7 +68,7 @@ public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdap
     }
 
     @Override
-    public void onBindViewHolder(PEViewHolder holder , int position)
+    public void onBindViewHolder(final PEViewHolder holder , int position)
     {
         final Premimum_Event_Class premimumEventClass = premimum_event_classList.get(position);
         Glide.with(context)
@@ -80,7 +82,12 @@ public class PremimumEventAdapter extends RecyclerView.Adapter<PremimumEventAdap
         holder.for_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toasty.success(context,premimumEventClass.getEv_id(), Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(context, Event_detail.class);
+//                i.putExtra("event_id",premimumEventClass.getEv_id());
+//                i.putExtra("event_name",premimumEventClass.getEv_title());
+//                i.putExtra("event_image",premimumEventClass.getEv_image());
+//                context.startActivity(i);
+//                Animation.fade(context);
             }
         });
     }

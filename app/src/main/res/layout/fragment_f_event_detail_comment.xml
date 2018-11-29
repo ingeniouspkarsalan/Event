@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragement_activity_classes.f_event_detail_comment">
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_child_count="10"
+        android:layout_above="@id/ev_comment"/>
+
+    <EditText
+        android:id="@+id/ev_comment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/booking_edit_text_style"
+        android:fontFamily="sans-serif-light"
+        android:paddingLeft="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="60dp"
+        android:inputType="text"
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/colorPrimaryDark"
+        android:hint="Enter Comment"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/sent_btn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:background="@drawable/button_shape"
+        android:layout_alignParentBottom="true"
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_alignParentEnd="true"
+        android:drawableStart="@drawable/ic_send_black_24dp" />
+
+</RelativeLayout>

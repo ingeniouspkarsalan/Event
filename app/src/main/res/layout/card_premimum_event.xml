@@ -23,7 +23,6 @@
                 android:id="@+id/ev_banner_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/t1"
                 android:scaleType="fitXY"/>
 
             <ImageView
