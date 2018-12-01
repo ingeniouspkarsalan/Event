@@ -69,11 +69,11 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback {
         List<LatLng> locations = new ArrayList<>();
         if(for_markers_eventsList.size() > 0){
             for(int i=0;i<for_markers_eventsList.size();i++){
-                if(for_markers_eventsList.get(i).getEv_latitude() !=0 && for_markers_eventsList.get(i).getEv_longitude() !=0){
-                    locations.add(new LatLng(for_markers_eventsList.get(i).getEv_latitude(),for_markers_eventsList.get(i).getEv_longitude()));
-                    mMap.addMarker(new MarkerOptions().position(new LatLng(for_markers_eventsList.get(i).getEv_latitude(),for_markers_eventsList.get(i).getEv_longitude())).title(for_markers_eventsList.get(i).getEv_title()));
-
-                }
+//                if(for_markers_eventsList.get(i).getEv_latitude() !=0 && for_markers_eventsList.get(i).getEv_longitude() !=0){
+//                    locations.add(new LatLng(for_markers_eventsList.get(i).getEv_latitude(),for_markers_eventsList.get(i).getEv_longitude()));
+//                    mMap.addMarker(new MarkerOptions().position(new LatLng(for_markers_eventsList.get(i).getEv_latitude(),for_markers_eventsList.get(i).getEv_longitude())).title(for_markers_eventsList.get(i).getEv_title()));
+//
+//                }
             }
 
             //LatLngBound will cover all your marker on Google Maps
@@ -87,6 +87,8 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback {
 
 
 
+        }else {
+            Toast.makeText(getContext(),"",Toast.LENGTH_SHORT).show();
         }
     }
 

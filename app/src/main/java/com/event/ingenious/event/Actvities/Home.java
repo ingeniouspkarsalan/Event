@@ -53,7 +53,8 @@ public class Home extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Tablayout_Fragment adapter = new Tablayout_Fragment(getSupportFragmentManager());
-        adapter.addFragment(new Map_fragment(), "Map");
+        //adapter.addFragment(new Map_fragment(), "Map");
+        adapter.addFragment(new Premium_Fragment(), "Map");
         adapter.addFragment(new Premium_Fragment(), "Premium");
         adapter.addFragment(new Trending_Fragment(), "Trending");
         adapter.addFragment(new Trending_Fragment(), "Live");

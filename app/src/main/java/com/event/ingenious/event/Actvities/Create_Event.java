@@ -289,7 +289,7 @@ public class Create_Event extends AppCompatActivity  {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("req_key","create_event");
-        params.put("ev_titl",tit);
+        params.put("ev_title",tit);
         params.put("ev_desc",des);
         params.put("ev_date",date);
         params.put("ev_start_time",s_time);
