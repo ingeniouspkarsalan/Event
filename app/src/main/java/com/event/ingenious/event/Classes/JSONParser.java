@@ -11,6 +11,7 @@ public class JSONParser
 {
     static List<Premimum_Event_Class> premimum_event_classList;
     static List<MyEventClass> myEventClassList;
+    static List<for_markers_events> for_markers_eventsList;
 
     public static List<Premimum_Event_Class> prese_premimum_event(String content)
     {
@@ -72,6 +73,43 @@ public class JSONParser
                 myEventClassList.add(myEventClass);
             }
             return myEventClassList;
+        }
+        catch (JSONException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    public static List<for_markers_events> prese_map_event(String content)
+    {
+        JSONArray jsonArray = null;
+        for_markers_events for_markers_events = null;
+        try
+        {
+            jsonArray = new JSONArray(content);
+            for_markers_eventsList = new ArrayList<>();
+            for(int i = 0; i < jsonArray.length(); i++)
+            {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                for_markers_events = new for_markers_events(jsonObject.getString("ev_id"),
+                        jsonObject.getString("ev_title"),
+                        jsonObject.getString("ev_desc")
+                        ,jsonObject.getString("ev_date") ,
+                        jsonObject.getString("ev_start_time"),
+                        jsonObject.getString("ev_end_time"),
+                        jsonObject.getString("ev_address"),
+                        jsonObject.getDouble("ev_latitude"),
+                        jsonObject.getDouble("ev_longitude")
+                        ,jsonObject.getString("ev_category"),
+                        jsonObject.getString("ev_image"),
+                        jsonObject.getString("ev_created_by")
+                        ,jsonObject.getString("ev_premimum"),
+                        jsonObject.getString("ev_trending"));
+
+
+                for_markers_eventsList.add(for_markers_events);
+            }
+            return for_markers_eventsList;
         }
         catch (JSONException ex) {
             ex.printStackTrace();
