@@ -19,13 +19,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.event.ingenious.event.Actvities.Home;
 import com.event.ingenious.event.Adapter.PremimumEventAdapter;
 import com.event.ingenious.event.AppUtils.Endpoints;
 import com.event.ingenious.event.Classes.JSONParser;
 import com.event.ingenious.event.Classes.Premimum_Event_Class;
+import com.event.ingenious.event.Classes.for_markers_events;
 import com.event.ingenious.event.R;
 import com.pixplicity.easyprefs.library.Prefs;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +42,7 @@ public class Premium_Fragment extends Fragment {
     private List<Premimum_Event_Class> premimum_event_classList;
     PremimumEventAdapter premimumEventAdapter;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +50,8 @@ public class Premium_Fragment extends Fragment {
                 R.layout.activity_premium__fragment, container, false);
         recyclerView = rv.findViewById(R.id.recyclerview);
         requestData(Endpoints.ip_server);
+
+
         return rv;
     }
 
@@ -88,4 +94,9 @@ public class Premium_Fragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
         queue.add(request);
     }
+
+
+
+
+
 }

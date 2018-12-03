@@ -11,7 +11,7 @@ public class JSONParser
 {
     static List<Premimum_Event_Class> premimum_event_classList;
     static List<MyEventClass> myEventClassList;
-    static List<for_markers_events> for_markers_eventsList;
+    static ArrayList<for_markers_events> for_markers_eventsList;
 
     public static List<Premimum_Event_Class> prese_premimum_event(String content)
     {
@@ -80,7 +80,7 @@ public class JSONParser
         }
     }
 
-    public static List<for_markers_events> prese_map_event(String content)
+    public static ArrayList<for_markers_events> prese_map_event(String content)
     {
         JSONArray jsonArray = null;
         for_markers_events for_markers_events = null;
@@ -102,7 +102,7 @@ public class JSONParser
                         jsonObject.getDouble("ev_longitude")
                         ,jsonObject.getString("ev_category"),
                         jsonObject.getString("ev_image"),
-                        jsonObject.getString("ev_created_by")
+                        jsonObject.getString("ev_create_by")
                         ,jsonObject.getString("ev_premimum"),
                         jsonObject.getString("ev_trending"));
 

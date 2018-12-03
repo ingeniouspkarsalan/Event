@@ -4,8 +4,19 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.event.ingenious.event.AppUtils.Endpoints;
 import com.event.ingenious.event.Classes.Animation;
+import com.event.ingenious.event.Classes.JSONParser;
+import com.event.ingenious.event.Classes.for_markers_events;
 import com.event.ingenious.event.Fragement_activity_classes.Event_profile_fragment;
 import com.event.ingenious.event.Fragement_activity_classes.Map_fragment;
 import com.event.ingenious.event.Fragement_activity_classes.News_Fragment;
@@ -13,6 +24,14 @@ import com.event.ingenious.event.Fragement_activity_classes.Premium_Fragment;
 import com.event.ingenious.event.Fragement_activity_classes.Trending_Fragment;
 import com.event.ingenious.event.FragmentAdaptor.Tablayout_Fragment;
 import com.event.ingenious.event.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import es.dmoral.toasty.Toasty;
 
 public class Home extends AppCompatActivity {
     private TabLayout tabLayout;
@@ -53,8 +72,7 @@ public class Home extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         Tablayout_Fragment adapter = new Tablayout_Fragment(getSupportFragmentManager());
-        //adapter.addFragment(new Map_fragment(), "Map");
-        adapter.addFragment(new Premium_Fragment(), "Map");
+        adapter.addFragment(new Map_fragment(), "Map");
         adapter.addFragment(new Premium_Fragment(), "Premium");
         adapter.addFragment(new Trending_Fragment(), "Trending");
         adapter.addFragment(new Trending_Fragment(), "Live");
@@ -70,4 +88,6 @@ public class Home extends AppCompatActivity {
         moveTaskToBack(true);
         System.exit(1);
     }
+
+
 }

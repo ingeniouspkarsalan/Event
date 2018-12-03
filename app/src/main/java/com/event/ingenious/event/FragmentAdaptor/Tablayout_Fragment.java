@@ -1,8 +1,11 @@
 package com.event.ingenious.event.FragmentAdaptor;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.event.ingenious.event.Classes.for_markers_events;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +22,6 @@ public class Tablayout_Fragment extends FragmentPagerAdapter {
         public void addFragment(Fragment fragment, String title) {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
-
         }
 
         @Override
