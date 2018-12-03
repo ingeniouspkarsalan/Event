@@ -5,6 +5,7 @@
     <color name="colorAccent">#e67d22</color>
     <color name="white">#ffffff</color>
     <color name="hint">#85f2eeee</color>
+    <color name="map_marker">#730e0e0e</color>
 
     <color name="transparent_cover">#7046463c</color>
     <color name="formenu">#890e0e0e</color>

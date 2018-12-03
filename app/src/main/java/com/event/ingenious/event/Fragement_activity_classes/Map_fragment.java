@@ -1,6 +1,7 @@
 package com.event.ingenious.event.Fragement_activity_classes;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.event.ingenious.event.Actvities.Home;
 import com.event.ingenious.event.AppUtils.Endpoints;
 import com.event.ingenious.event.Classes.JSONParser;
 import com.event.ingenious.event.Classes.for_markers_events;
+import com.event.ingenious.event.Map.MarkerInfoWindowAdapter;
 import com.event.ingenious.event.R;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -73,7 +76,6 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback {
 
                     try{
                         if(for_markers_eventsList.size() > 0){
-                            Toast.makeText(getActivity(),"fff"+for_markers_eventsList.size(),Toast.LENGTH_SHORT).show();
                             for(int i=0;i<for_markers_eventsList.size();i++){
                                 if(for_markers_eventsList.get(i).getEv_latitude() !=0 && for_markers_eventsList.get(i).getEv_longitude() !=0){
                                     locations.add(new LatLng(for_markers_eventsList.get(i).getEv_latitude(),for_markers_eventsList.get(i).getEv_longitude()));
@@ -90,6 +92,48 @@ public class Map_fragment extends Fragment implements OnMapReadyCallback {
                             CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, 200);
                             mMap.moveCamera(cu);
                             mMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+
+                            final Intent In_list=new Intent();
+                            In_list.putParcelableArrayListExtra("data_for_marker",for_markers_eventsList);
+                            MarkerInfoWindowAdapter markerInfoWindowAdapter = new MarkerInfoWindowAdapter(getContext(),In_list);
+                            mMap.setInfoWindowAdapter(markerInfoWindowAdapter);
+
+                            mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                @Override
+                                public boolean onMarkerClick(Marker marker) {
+                                    marker.showInfoWindow();
+                                    return true;
+                                }
+                            });
+
+
+//                            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+//                                @Override
+//                                public void onInfoWindowClick(Marker marker) {
+//                                    String id = marker.getId();
+//                                    id = id.replace("m","");
+//                                    int i=Integer.parseInt(id);
+//
+//                                    Intent send=new Intent(getContext(), Item_page.class);
+//                                    send.putExtra("b_id",bus_list_classes.get(i).getB_id());
+//                                    send.putExtra("b_name",bus_list_classes.get(i).getB_name());
+//                                    send.putExtra("b_image",bus_list_classes.get(i).getB_image());
+//                                    send.putExtra("b_mobile",bus_list_classes.get(i).getB_mobile());
+//                                    send.putExtra("b_city",bus_list_classes.get(i).getB_city());
+//                                    send.putExtra("b_address",bus_list_classes.get(i).getB_address());
+//                                    send.putExtra("b_detail",bus_list_classes.get(i).getB_detail());
+//                                    send.putExtra("b_lat",bus_list_classes.get(i).getB_lat());
+//                                    send.putExtra("b_long",bus_list_classes.get(i).getB_long());
+//                                    send.putExtra("b_email",bus_list_classes.get(i).getB_email());
+//                                    send.putExtra("lat",bus_list_classes.get(i).getB_lat());
+//                                    send.putExtra("long",bus_list_classes.get(i).getB_long());
+//                                    getContext().startActivity(send);
+//                                }
+//                            });
+
+
+
+
 
 
 
