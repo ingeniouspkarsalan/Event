@@ -30,7 +30,8 @@
                 android:id="@+id/user_profile_pic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_person_black_24dp"/>
+                android:padding="5dp"
+                android:src="@drawable/myuser"/>
 
         </com.github.florent37.shapeofview.shapes.CircleView>
 
@@ -41,6 +42,7 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:textSize="25sp"
+            android:textColor="@color/black"
             android:textAlignment="center" />
 
         <TextView
@@ -51,82 +53,197 @@
             android:drawableRight="@drawable/ic_edit_black_24dp"
             android:textSize="18sp"
             android:padding="5dp"
+            android:textColor="@color/black"
             android:textAlignment="center" />
     </LinearLayout>
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-        <com.github.florent37.shapeofview.shapes.CircleView
-            android:id="@+id/shape_my_event"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="13dp"
-            android:elevation="4dp"
-            android:background="@color/white"
-            app:shape_circle_borderColor="@color/colorPrimaryDark"
-            app:shape_circle_borderWidth="2dp">
-
-            <!-- YOUR CONTENT -->
-
-            <ImageView
-                android:id="@+id/shape_my_event_child"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="5dp"
-                android:src="@drawable/ic_event_note_black_24dp"/>
-
-        </com.github.florent37.shapeofview.shapes.CircleView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="My Event"
-            android:textSize="18dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"
-            android:layout_below="@id/shape_my_event"/>
-
-        <com.github.florent37.shapeofview.shapes.CircleView
-            android:id="@+id/shape_create_event"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="24dp"
-            android:layout_centerHorizontal="true"
-            android:elevation="4dp"
-            android:background="@color/white"
-            app:shape_circle_borderColor="@color/colorPrimaryDark"
-            app:shape_circle_borderWidth="2dp">
-
-            <!-- YOUR CONTENT -->
-
-            <ImageView
-                android:id="@+id/shape_create_event_child"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_event_available_black_24dp"
-                android:padding="5dp"/>
-
-        </com.github.florent37.shapeofview.shapes.CircleView>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Create Event"
-            android:textSize="18dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_centerInParent="true"
-            android:layout_below="@id/shape_my_event"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
 
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/shape_my_event"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="13dp"
+                android:elevation="4dp"
+                android:background="@color/white"
+                app:shape_circle_borderColor="@color/colorPrimaryDark"
+                app:shape_circle_borderWidth="2dp">
 
-    </RelativeLayout>
+                <!-- YOUR CONTENT -->
+
+                <ImageView
+                    android:id="@+id/shape_my_event_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:src="@drawable/myeventicon"/>
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:id="@+id/shape_my_event_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Event"
+                android:textSize="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:layout_below="@id/shape_my_event"/>
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/shape_create_event"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:layout_centerHorizontal="true"
+                android:elevation="4dp"
+                android:background="@color/white"
+                app:shape_circle_borderColor="@color/colorPrimaryDark"
+                app:shape_circle_borderWidth="2dp">
+
+                <!-- YOUR CONTENT -->
+
+                <ImageView
+                    android:id="@+id/shape_create_event_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/createeventicon"
+                    android:padding="5dp"/>
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:id="@+id/shape_create_event_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Create Event"
+                android:textSize="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/shape_my_event"/>
+
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/shape_my_guest"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="13dp"
+                android:layout_alignParentEnd="true"
+                android:elevation="4dp"
+                android:background="@color/white"
+                app:shape_circle_borderColor="@color/colorPrimaryDark"
+                app:shape_circle_borderWidth="2dp">
+
+                <!-- YOUR CONTENT -->
+
+                <ImageView
+                    android:id="@+id/shape_my_guest_chlid"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/friendslist"
+                    android:padding="5dp"/>
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Guest"
+                android:textSize="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:textColor="@color/black"
+                android:layout_below="@id/shape_my_event"/>
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/shape_my_friends"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="13dp"
+                android:layout_below="@id/shape_my_event_text"
+                android:elevation="4dp"
+                android:background="@color/white"
+                app:shape_circle_borderColor="@color/colorPrimaryDark"
+                app:shape_circle_borderWidth="2dp">
+
+                <!-- YOUR CONTENT -->
+
+                <ImageView
+                    android:id="@+id/shape_my_friends_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:src="@drawable/guest"/>
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Friends"
+                android:textSize="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:layout_below="@id/shape_my_friends"/>
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/shape_notification"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="24dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/shape_create_event_text"
+                android:elevation="4dp"
+                android:background="@color/white"
+                app:shape_circle_borderColor="@color/colorPrimaryDark"
+                app:shape_circle_borderWidth="2dp">
+
+                <!-- YOUR CONTENT -->
+
+                <ImageView
+                    android:id="@+id/shape_shape_notification_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/notification"
+                    android:padding="5dp"/>
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notification"
+                android:textSize="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"
+                android:layout_below="@id/shape_notification"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </LinearLayout>
