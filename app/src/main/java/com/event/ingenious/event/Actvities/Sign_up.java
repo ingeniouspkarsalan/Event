@@ -107,8 +107,13 @@ public class Sign_up extends AppCompatActivity {
                         JSONObject object  = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                         if(object.getBoolean("success")) {
                             Toasty.success(Sign_up.this,object.getString("message"),Toast.LENGTH_LONG).show();
-                            //startActivity(new Intent(Sign_up.this, Home.class));
+                            Prefs.putString("user_id",object.getString("id"));
+                            Prefs.putString("user_name",object.getString("name"));
+                            Prefs.putString("user_email",object.getString("email"));
+                            Prefs.putBoolean("loginSuccess",true); // change this value on logout
+                            startActivity(new Intent(Sign_up.this, Home.class));
                             finish();
+
                             Animation.slideUp(Sign_up.this);
 
                         }else {
