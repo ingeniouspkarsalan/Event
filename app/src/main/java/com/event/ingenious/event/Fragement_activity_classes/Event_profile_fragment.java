@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.event.ingenious.event.Actvities.Create_Event;
+import com.event.ingenious.event.Actvities.Edit_Profile_act;
 import com.event.ingenious.event.Actvities.My_Event;
 import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.R;
@@ -31,6 +32,14 @@ public class Event_profile_fragment extends Fragment {
         TextView tv_user_name = rv.findViewById(R.id.tv_user_name);
         String user_name = Prefs.getString("user_name","User");
         tv_user_name.setText(user_name);
+
+        rv.findViewById(R.id.tv_edit_profile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), Edit_Profile_act.class));
+                Animation.fade(getContext());
+            }
+        });
 
         rv.findViewById(R.id.shape_create_event).setOnClickListener(new View.OnClickListener() {
             @Override
