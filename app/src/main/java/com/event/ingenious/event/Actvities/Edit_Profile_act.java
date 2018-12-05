@@ -153,13 +153,12 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
                             password.setText(object.getString("u_pass"));
                             age.setText(object.getString("u_age"));
                             contact.setText(object.getString("u_contact"));
-                            Toast.makeText(Edit_Profile_act.this,object.getString("u_name")+"   abcd",Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             new SweetAlertDialog(Edit_Profile_act.this, SweetAlertDialog.ERROR_TYPE)
                                     .setTitleText("Oops...")
-                                    .setContentText(object.getString("message"))
+                                    .setContentText("Please try again.")
                                     .show();
                         }
 
