@@ -11,19 +11,21 @@ import java.io.UnsupportedEncodingException;
 
 //import cn.pedant.SweetAlert.SweetAlertDialog;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 import static android.content.Context.CONNECTIVITY_SERVICE;
 
 public class Utils
 {
     //Will return instance on ProgressDialog to show and hide
-//    public static SweetAlertDialog showProgress(Context ctx)
-//    {
-//        SweetAlertDialog pDialog = new SweetAlertDialog(ctx, SweetAlertDialog.PROGRESS_TYPE);
-//        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-//        pDialog.setTitleText("Connecting to Server...");
-//        pDialog.setCancelable(false);
-//        return pDialog;
-//    }
+    public static SweetAlertDialog showProgress(Context ctx)
+    {
+        SweetAlertDialog pDialog = new SweetAlertDialog(ctx, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Connecting to Server...");
+        pDialog.setCancelable(false);
+        return pDialog;
+    }
 
     public static boolean isOnline(Context ctx) {
 
