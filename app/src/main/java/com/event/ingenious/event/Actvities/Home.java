@@ -1,5 +1,6 @@
 package com.event.ingenious.event.Actvities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -47,6 +48,11 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        try{
+            if(getIntent().getStringExtra("onetime").equals("yes")){
+                startActivity(new Intent(Home.this, Edit_Profile_act.class));
+            }
+        }catch (Exception e){}
         Init();
     }
 
