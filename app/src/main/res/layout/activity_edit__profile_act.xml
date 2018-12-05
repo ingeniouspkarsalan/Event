@@ -71,7 +71,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:backgroundTint="@color/colorPrimary"
-                 android:id="@+id/name"
+                 android:id="@+id/names"
+                 android:textColor="@color/colorPrimary"
                  android:padding="5dp"
                  />
 
@@ -86,8 +87,9 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:backgroundTint="@color/colorPrimary"
-                 android:id="@+id/password"
+                 android:id="@+id/passwords"
                  android:inputType="textPassword"
+                 android:textColor="@color/colorPrimary"
                  android:padding="5dp"
                  />
              <TextView
@@ -101,7 +103,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:backgroundTint="@color/colorPrimary"
-                 android:id="@+id/age"
+                 android:id="@+id/ages"
+                 android:textColor="@color/colorPrimary"
                  android:padding="5dp"
                  />
 
@@ -117,7 +120,7 @@
                  android:layout_height="wrap_content"
                  android:backgroundTint="@color/colorPrimary"
                  android:padding="5dp"
-                 android:id="@+id/gender"
+                 android:id="@+id/genders"
                  />
              <TextView
                  android:layout_width="wrap_content"
@@ -130,7 +133,8 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:backgroundTint="@color/colorPrimary"
-                 android:id="@+id/contact"
+                 android:id="@+id/contacts"
+                 android:textColor="@color/colorPrimary"
                  android:inputType="phone"
                  android:padding="5dp"
                  />
@@ -146,8 +150,9 @@
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:backgroundTint="@color/colorPrimary"
-                 android:id="@+id/location"
+                 android:id="@+id/locations"
                  android:padding="5dp"
+                 android:textColor="@color/colorPrimary"
                  />
 
          </LinearLayout>

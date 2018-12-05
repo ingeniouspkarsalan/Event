@@ -1,5 +1,7 @@
 package com.event.ingenious.event.Actvities;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Location;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -84,18 +87,19 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
 
     private void init() {
 
-        name =  findViewById(R.id.name);
-        password = findViewById(R.id.password);
-        age = findViewById(R.id.age);
-        contact = findViewById(R.id.contact);
-        locations = findViewById(R.id.location);
-        gender = findViewById(R.id.gender);
+        name =  findViewById(R.id.names);
+        password = findViewById(R.id.passwords);
+        age = findViewById(R.id.ages);
+        contact = findViewById(R.id.contacts);
+        locations = findViewById(R.id.locations);
+        gender = findViewById(R.id.genders);
         String[] genders = getResources().getStringArray(R.array.gender);
         gender.setAdapter(new ArrayAdapter<String>(Edit_Profile_act.this, android.R.layout.simple_spinner_dropdown_item, genders));
 
         locations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboardFrom(Edit_Profile_act.this,v);
                 mLastLocation=locationHelper.getLocation();
 
                 if (mLastLocation != null) {
@@ -145,11 +149,11 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
                         JSONObject object  = new JSONObject(response.substring(response.indexOf("{"), response.lastIndexOf("}") + 1));
                         if(object.getBoolean("success"))
                         {
-                            //name.setText(object.getString("u_name"));
-                            name.setText("Dilawar Khan");
+                            name.setText(object.getString("u_name"));
                             password.setText(object.getString("u_pass"));
                             age.setText(object.getString("u_age"));
                             contact.setText(object.getString("u_contact"));
+                            Toast.makeText(Edit_Profile_act.this,object.getString("u_name")+"   abcd",Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -204,39 +208,20 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
             String postalCode = locationAddress.getPostalCode();
 
 
-            String currentLocation;
+            String currentLocation="";
 
-            if(!TextUtils.isEmpty(address))
-            {
-                currentLocation=address;
+            if(!TextUtils.isEmpty(address)) {
 
-                if (!TextUtils.isEmpty(address1))
-                    currentLocation+="\n"+address1;
 
-                if (!TextUtils.isEmpty(city))
-                {
-                    currentLocation+="\n"+city;
-
-                    if (!TextUtils.isEmpty(postalCode))
-                        currentLocation+=" - "+postalCode;
+                if (!TextUtils.isEmpty(city) && !TextUtils.isEmpty(country)) {
+                    currentLocation += city + "," + country;
                 }
-                else
-                {
-                    if (!TextUtils.isEmpty(postalCode))
-                        currentLocation+="\n"+postalCode;
-                }
-
-                if (!TextUtils.isEmpty(state))
-                    currentLocation+="\n"+state;
-
-                if (!TextUtils.isEmpty(country))
-                    currentLocation+="\n"+country;
 
                 locations.setVisibility(View.GONE);
                 locations.setText(currentLocation);
                 locations.setVisibility(View.VISIBLE);
 
-                if(!locations.isEnabled())
+                if (!locations.isEnabled())
                     locations.setEnabled(true);
             }
 
@@ -292,5 +277,11 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
     public void showToast(String message)
     {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
