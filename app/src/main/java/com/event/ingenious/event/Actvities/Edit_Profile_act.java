@@ -1,7 +1,13 @@
 package com.event.ingenious.event.Actvities;
 
+import android.content.Intent;
+import android.location.Address;
+import android.location.Location;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,7 +17,10 @@ import android.widget.Toast;
 
 import com.event.ingenious.event.AppUtils.Endpoints;
 import com.event.ingenious.event.AppUtils.Utils;
+import com.event.ingenious.event.Classes.LocationHelper;
 import com.event.ingenious.event.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -26,10 +35,18 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 import es.dmoral.toasty.Toasty;
 
-public class Edit_Profile_act extends AppCompatActivity  {
+public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener,ActivityCompat.OnRequestPermissionsResultCallback {
     EditText name, password, age, contact, locations;
     Spinner gender;
     SweetAlertDialog pd;
+
+    private Location mLastLocation;
+
+    double latitude;
+    double longitude;
+
+    LocationHelper locationHelper;
 
     //take user id From Prefs
     String id = Prefs.getString("user_id","0");
@@ -48,9 +65,20 @@ public class Edit_Profile_act extends AppCompatActivity  {
             multiDummy.addView(toggle);
         }
         init();
+        location_picker();
     }
 
    private void location_picker(){
+
+       locationHelper=new LocationHelper(this);
+       locationHelper.checkpermission();
+
+
+       if (locationHelper.checkPlayServices()) {
+
+           // Building the GoogleApi client
+           locationHelper.buildGoogleApiClient();
+       }
 
     }
 
@@ -68,7 +96,20 @@ public class Edit_Profile_act extends AppCompatActivity  {
         locations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mLastLocation=locationHelper.getLocation();
 
+                if (mLastLocation != null) {
+                    latitude = mLastLocation.getLatitude();
+                    longitude = mLastLocation.getLongitude();
+                    getAddress();
+
+                } else {
+
+                    if(locations.isEnabled())
+                        locations.setEnabled(false);
+
+                    showToast("Couldn't get the location. Make sure location is enabled on the device");
+                }
                 
             }
         });
@@ -146,4 +187,110 @@ public class Edit_Profile_act extends AppCompatActivity  {
     }
 
 
+    public void getAddress()
+    {
+        Address locationAddress;
+
+        locationAddress=locationHelper.getAddress(latitude,longitude);
+
+        if(locationAddress!=null)
+        {
+
+            String address = locationAddress.getAddressLine(0);
+            String address1 = locationAddress.getAddressLine(1);
+            String city = locationAddress.getLocality();
+            String state = locationAddress.getAdminArea();
+            String country = locationAddress.getCountryName();
+            String postalCode = locationAddress.getPostalCode();
+
+
+            String currentLocation;
+
+            if(!TextUtils.isEmpty(address))
+            {
+                currentLocation=address;
+
+                if (!TextUtils.isEmpty(address1))
+                    currentLocation+="\n"+address1;
+
+                if (!TextUtils.isEmpty(city))
+                {
+                    currentLocation+="\n"+city;
+
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation+=" - "+postalCode;
+                }
+                else
+                {
+                    if (!TextUtils.isEmpty(postalCode))
+                        currentLocation+="\n"+postalCode;
+                }
+
+                if (!TextUtils.isEmpty(state))
+                    currentLocation+="\n"+state;
+
+                if (!TextUtils.isEmpty(country))
+                    currentLocation+="\n"+country;
+
+                locations.setVisibility(View.GONE);
+                locations.setText(currentLocation);
+                locations.setVisibility(View.VISIBLE);
+
+                if(!locations.isEnabled())
+                    locations.setEnabled(true);
+            }
+
+        }
+        else
+            showToast("Something went wrong");
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        locationHelper.onActivityResult(requestCode,resultCode,data);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        locationHelper.checkPlayServices();
+    }
+
+    /**
+     * Google api callback methods
+     */
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i("Connection failed:", " ConnectionResult.getErrorCode() = "
+                + result.getErrorCode());
+    }
+
+    @Override
+    public void onConnected(Bundle arg0) {
+
+        // Once connected with google api, get the location
+        mLastLocation=locationHelper.getLocation();
+    }
+
+    @Override
+    public void onConnectionSuspended(int arg0) {
+        locationHelper.connectApiClient();
+    }
+
+
+    // Permission check functions
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        // redirects to utils
+        locationHelper.onRequestPermissionsResult(requestCode,permissions,grantResults);
+
+    }
+
+    public void showToast(String message)
+    {
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
 }
