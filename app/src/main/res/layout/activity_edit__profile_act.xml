@@ -66,7 +66,6 @@
                 android:text="Name"
                 android:padding="5dp"
                 android:textSize="15dp"
-                android:fontFamily="monospace"
                 />
              <EditText
                  android:layout_width="match_parent"
@@ -75,19 +74,50 @@
                  android:id="@+id/name"
                  android:padding="5dp"
                  />
+
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Password"
+                 android:padding="5dp"
+                 android:textSize="15dp"
+                 />
+             <EditText
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:backgroundTint="@color/colorPrimary"
+                 android:id="@+id/password"
+                 android:inputType="textPassword"
+                 android:padding="5dp"
+                 />
+             <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="Age"
+                 android:padding="5dp"
+                 android:textSize="15dp"
+                 />
+             <EditText
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:backgroundTint="@color/colorPrimary"
+                 android:id="@+id/age"
+                 android:padding="5dp"
+                 />
+
              <TextView
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
                  android:text="Gender"
                  android:padding="5dp"
                  android:textSize="15dp"
-                 android:fontFamily="monospace"
                  />
              <Spinner
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:backgroundTint="@color/colorPrimary"
                  android:padding="5dp"
+                 android:id="@+id/gender"
                  />
              <TextView
                  android:layout_width="wrap_content"
@@ -95,7 +125,6 @@
                  android:text="Contact"
                  android:padding="5dp"
                  android:textSize="15dp"
-                 android:fontFamily="monospace"
                  />
              <EditText
                  android:layout_width="match_parent"
@@ -112,7 +141,6 @@
                  android:text="Location"
                  android:padding="5dp"
                  android:textSize="15dp"
-                 android:fontFamily="monospace"
                  />
              <EditText
                  android:layout_width="match_parent"
@@ -141,11 +169,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Intersted"
+                    android:text="Interests"
                     android:padding="5dp"
-                    android:textSize="15dp"
+                    android:textSize="17dp"
                     android:textStyle="bold"
-                    android:fontFamily="monospace"
                     />
 
                 <com.nex3z.togglebuttongroup.MultiSelectToggleGroup

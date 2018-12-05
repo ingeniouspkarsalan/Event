@@ -77,7 +77,7 @@ public class Sign_up extends AppCompatActivity {
         });
     }
 
-    private void sign_up(String names,String contacts,String emails, String passwords,String token)
+    private void sign_up( String names, String contacts, String emails, String passwords, String token)
     {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -109,7 +109,6 @@ public class Sign_up extends AppCompatActivity {
                             Toasty.success(Sign_up.this,object.getString("message"),Toast.LENGTH_LONG).show();
                             Prefs.putString("user_id",object.getString("id"));
                             Prefs.putString("user_name",object.getString("name"));
-                            Prefs.putString("user_email",object.getString("email"));
                             Prefs.putBoolean("loginSuccess",true); // change this value on logout
                             startActivity(new Intent(Sign_up.this, Home.class));
                             finish();
