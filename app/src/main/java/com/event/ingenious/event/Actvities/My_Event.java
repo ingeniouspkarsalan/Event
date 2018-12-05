@@ -16,6 +16,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.event.ingenious.event.Adapter.MyEventAdapter;
 import com.event.ingenious.event.AppUtils.Endpoints;
+import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.Classes.JSONParser;
 import com.event.ingenious.event.Classes.MyEventClass;
 import com.event.ingenious.event.R;
@@ -57,6 +58,13 @@ public class My_Event extends AppCompatActivity {
                     new SweetAlertDialog(My_Event.this, SweetAlertDialog.ERROR_TYPE)
                             .setTitleText("Oops...")
                             .setContentText("You don't have event.")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                    finish();
+                                    Animation.fade(My_Event.this);
+                                }
+                            })
                             .show();
                 } else {
                     myEventClassList = JSONParser.prese_my_event(response);

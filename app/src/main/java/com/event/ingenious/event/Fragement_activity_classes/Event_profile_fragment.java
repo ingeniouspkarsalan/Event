@@ -58,7 +58,8 @@ public class Event_profile_fragment extends Fragment {
         rv.findViewById(R.id.tv_edit_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(getContext(), Edit_Profile_act.class));
+                Animation.fade(getContext());
             }
         });
         return rv;
