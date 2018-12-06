@@ -53,13 +53,14 @@ import cz.msebera.android.httpclient.Header;
 import es.dmoral.toasty.Toasty;
 
 public class Create_Event extends AppCompatActivity  {
-    EditText ev_title, ev_des;
+    EditText ev_title, ev_des, ev_price;
     TextView ev_date,  ev_str_time, ev_end_time,show_ev_date,  show_ev_str_time, show_ev_end_time;
-    Spinner ev_category;
+    Spinner ev_category, ev_paid;
     ImageView imagebanner;
     Calendar ev_date_picker;
     Button ev_cre_btn;
     ArrayList<String> cat_names;
+    String[] is_paid = {"No","Yes"};
 
     private String photoPath = "";
     LinearLayout freezlayout;
@@ -110,6 +111,8 @@ public class Create_Event extends AppCompatActivity  {
         ev_des =  findViewById(R.id.evt_detail);
         ev_end_time =  findViewById(R.id.ev_end_time);
         ev_category = findViewById(R.id.evt_cate);
+        ev_price = findViewById(R.id.ev_price);
+        ev_paid = findViewById(R.id.evt_paid);
 
         show_ev_date =  findViewById(R.id.show_evt_date);
         show_ev_str_time =  findViewById(R.id.show_ev_strt_time);
@@ -136,6 +139,9 @@ public class Create_Event extends AppCompatActivity  {
         cat_names=new ArrayList<>();
         //Load category in Spiner
         load_category_for_spiner();
+
+        //Load Paid Status in Spinner
+        paid_spinner();
 
 
         // Set Date Picker Listner
@@ -223,7 +229,7 @@ public class Create_Event extends AppCompatActivity  {
                 {
 
                     creating_event(ev_title.getText().toString(),ev_des.getText().toString(),show_ev_date.getText().toString(),show_ev_str_time.getText().toString()
-                    ,show_ev_end_time.getText().toString(),placeName,latitude,longitude,ev_category.getSelectedItem().toString(),photoPath);
+                    ,show_ev_end_time.getText().toString(),placeName,latitude,longitude,ev_category.getSelectedItem().toString(),photoPath,ev_paid.getSelectedItem().toString(),ev_price.getText().toString());
                 }else{
                     Toasty.success(Create_Event.this,"Fill all fields",Toast.LENGTH_SHORT).show();
                 }
@@ -275,6 +281,14 @@ public class Create_Event extends AppCompatActivity  {
         cat_names.add("Live Match");
         ev_category.setAdapter(new ArrayAdapter<String>(Create_Event.this, android.R.layout.simple_spinner_dropdown_item, cat_names));
     }
+
+    //Declear Event Paid Status is event free or paid
+    //Declear the function for Spiner for data
+    private void paid_spinner()
+    {
+        ev_paid.setAdapter(new ArrayAdapter<String>(Create_Event.this, android.R.layout.simple_spinner_dropdown_item, is_paid));
+    }
+
     //set into date textview
     private void updateLabel() {
         String myFormat = "dd/MM/yy"; //In which you need put here
@@ -283,7 +297,7 @@ public class Create_Event extends AppCompatActivity  {
     }
 
 
-    private void creating_event(String tit,String des,String date, String s_time,String end_time,String address,double latit,double longti,String cate,String photo)
+    private void creating_event(String tit,String des,String date, String s_time,String end_time,String address,double latit,double longti,String cate,String photo, String paid, String price)
     {
         String id= Prefs.getPreferences().getString("user_id","");
         AsyncHttpClient client = new AsyncHttpClient();
@@ -299,6 +313,8 @@ public class Create_Event extends AppCompatActivity  {
         params.put("ev_longitude",longti);
         params.put("ev_category",cate);
         params.put("ev_create_by",id);
+        params.put("is_paid",paid);
+        params.put("ev_price",price);
         try{
 
         params.put("file_name",new File(photo));
