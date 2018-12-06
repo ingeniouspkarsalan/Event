@@ -183,7 +183,7 @@ public class Create_Event extends AppCompatActivity  {
                         }
                         show_ev_str_time.setText( selectedHour + ":" + selectedMinute + ":" + AM_PM);
                     }
-                }, hour, minute, false);//Yes 24 hour time
+                }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
             }

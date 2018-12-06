@@ -1,14 +1,9 @@
 package com.event.ingenious.event.Actvities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Address;
-import android.location.Location;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -30,10 +25,9 @@ import com.esafirm.imagepicker.model.Image;
 import com.event.ingenious.event.AppUtils.Endpoints;
 import com.event.ingenious.event.AppUtils.Utils;
 import com.event.ingenious.event.Classes.Animation;
-import com.event.ingenious.event.Classes.LocationHelper;
 import com.event.ingenious.event.R;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -52,22 +46,19 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 import es.dmoral.toasty.Toasty;
 
-public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,ActivityCompat.OnRequestPermissionsResultCallback {
+public class Edit_Profile_act extends AppCompatActivity {
     EditText name, password, age, contact, locations;
     Spinner gender;
     ImageView user_image;
     SweetAlertDialog pd;
     private String photoPath = "";
-    private Location mLastLocation;
-    double latitude=0;
-    double longitude=0;
-    String address_="ok";
-    LocationHelper locationHelper;
     //take user id From Prefs
     String id = Prefs.getString("user_id","0");
     ArrayList<String> inters=new ArrayList<>();
-
+    private final static int PLACE_PICKER_REQUEST = 999;
+    String placeName="";
+    double latitude =0;
+    double longitude=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,21 +93,6 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
 
 
         init();
-        location_picker();
-    }
-
-   private void location_picker(){
-
-       locationHelper=new LocationHelper(this);
-       locationHelper.checkpermission();
-
-
-       if (locationHelper.checkPlayServices()) {
-
-           // Building the GoogleApi client
-           locationHelper.buildGoogleApiClient();
-       }
-
     }
 
     private void init() {
@@ -145,20 +121,16 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
         locations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideKeyboardFrom(Edit_Profile_act.this,v);
-                mLastLocation=locationHelper.getLocation();
-
-                if (mLastLocation != null) {
-                    latitude = mLastLocation.getLatitude();
-                    longitude = mLastLocation.getLongitude();
-                    getAddress();
-
-                } else {
-
-                    if(locations.isEnabled())
-                        locations.setEnabled(false);
-
-                    showToast("Couldn't get the location. Make sure location is enabled on the device");
+                InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                im.showSoftInput(locations, 0);
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    // for activty
+                    startActivityForResult(builder.build(Edit_Profile_act.this), PLACE_PICKER_REQUEST);
+                    // for fragment
+                    //startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -242,49 +214,11 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
     }
 
 
-    public void getAddress()
-    {
-        Address locationAddress;
-
-        locationAddress=locationHelper.getAddress(latitude,longitude);
-
-        if(locationAddress!=null)
-        {
-
-            String address = locationAddress.getAddressLine(0);
-            String address1 = locationAddress.getAddressLine(1);
-            String city = locationAddress.getLocality();
-            String state = locationAddress.getAdminArea();
-            String country = locationAddress.getCountryName();
-            String postalCode = locationAddress.getPostalCode();
-
-
-            String currentLocation="";
-
-            if(!TextUtils.isEmpty(address)) {
-
-
-                if (!TextUtils.isEmpty(city) && !TextUtils.isEmpty(country)) {
-                    currentLocation += city + "," + country;
-                }
-
-                locations.setVisibility(View.GONE);
-                locations.setText(currentLocation);
-                locations.setVisibility(View.VISIBLE);
-                address_=currentLocation;
-                if (!locations.isEnabled())
-                    locations.setEnabled(true);
-            }
-
-        }
-        else
-            showToast("Something went wrong");
-    }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        locationHelper.onActivityResult(requestCode,resultCode,data);
+        try {
         if (ImagePicker.shouldHandle(requestCode, resultCode, data))
         {
             Image image = ImagePicker.getFirstImageOrNull(data);
@@ -293,56 +227,26 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
             user_image.setImageBitmap(bmImg);
             //name.setText(photoPath);
         }
-    }
+
+            if (resultCode == RESULT_OK) {
+                switch (requestCode) {
+                    case PLACE_PICKER_REQUEST:
+                        Place place = PlacePicker.getPlace(this, data);
+                        placeName = String.format("%s", place.getLocale().getCountry());
+
+                        latitude = place.getLatLng().latitude;
+                        longitude = place.getLatLng().longitude;
+                        locations.setText(" "+placeName);
+                }
+            }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        locationHelper.checkPlayServices();
-    }
+        }catch (Exception e){
 
-    /**
-     * Google api callback methods
-     */
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        Log.i("Connection failed:", " ConnectionResult.getErrorCode() = "
-                + result.getErrorCode());
-    }
-
-    @Override
-    public void onConnected(Bundle arg0) {
-
-        // Once connected with google api, get the location
-        mLastLocation=locationHelper.getLocation();
-    }
-
-    @Override
-    public void onConnectionSuspended(int arg0) {
-        locationHelper.connectApiClient();
-    }
-
-
-    // Permission check functions
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        // redirects to utils
-        locationHelper.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        }
 
     }
 
-    public void showToast(String message)
-    {
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
-    }
-
-
-    public static void hideKeyboardFrom(Context context, View view) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-    }
 
     // Declear the update Function
     private void update(final String name,String pass, String conatct,String age,String gender,double latitude,double longitude,String address,String intrest)
@@ -457,14 +361,19 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
         //noinspection SimplifiableIfStatement
         if (id == R.id.update) {
             if(!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(password.getText().toString()) && !TextUtils.isEmpty(contact.getText().toString())
-                    && !TextUtils.isEmpty(age.getText().toString())&& !TextUtils.isEmpty(gender.getSelectedItem().toString()) && !TextUtils.isEmpty(address_)
+                    && !TextUtils.isEmpty(age.getText().toString())&& !TextUtils.isEmpty(gender.getSelectedItem().toString())
                      &&inters.size()>0){
                 String ints="";
                 for(int i=0;i<inters.size();i++){
                     ints+=inters.get(i)+",";
                 }
-                update(name.getText().toString(),password.getText().toString(), contact.getText().toString(),age.getText().toString()
-                        ,gender.getSelectedItem().toString(),latitude,longitude,address_,ints);
+                if(!ints.equals("")){
+                    update(name.getText().toString(),password.getText().toString(), contact.getText().toString(),age.getText().toString()
+                            ,gender.getSelectedItem().toString(),latitude,longitude,placeName,ints);
+                }else{
+                    Toast.makeText(this, "nothing in interest", Toast.LENGTH_SHORT).show();
+                }
+
             }else{
                 Toast.makeText(this, "Fill up", Toast.LENGTH_SHORT).show();
             }
