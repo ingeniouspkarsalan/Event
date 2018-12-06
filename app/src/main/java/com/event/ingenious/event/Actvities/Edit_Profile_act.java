@@ -65,7 +65,7 @@ public class Edit_Profile_act extends AppCompatActivity {
     double latitude =0;
     double longitude=0;
 
-    MultiSelectToggleGroup multiDummy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,29 +74,6 @@ public class Edit_Profile_act extends AppCompatActivity {
         toolbar.setTitle("Edit Profile");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        multiDummy = findViewById(R.id.group_dummy);
-        String[] dummyText = getResources().getStringArray(R.array.dummy_text);
-        for (String text : dummyText) {
-            final LabelToggle toggle = new LabelToggle(this);
-            toggle.setText(text);
-            multiDummy.addView(toggle);
-            toggle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(toggle.isChecked()==true){
-                        inters.add(""+toggle.getText());
-                    }else if(toggle.isChecked()==false) {
-                        if(inters.size()>0){
-                            for(int i=0;i<inters.size();i++){
-                                if(inters.get(i).equals(toggle.getText().toString()+",")){
-                                    inters.remove(i);
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-        }
 
 
         init();
@@ -180,7 +157,7 @@ public class Edit_Profile_act extends AppCompatActivity {
                             placeName=object.getString("u_address");
                             locations.setText(placeName);
                             latitude=object.getDouble("u_latitude");
-                            latitude=object.getDouble("u_logitude");
+                            longitude=object.getDouble("u_logitude");
                             if(!object.getString("u_gender").isEmpty()){
                                 String[] genders = getResources().getStringArray(R.array.gender);
                                 for(int i=0;i<genders.length;i++){
@@ -194,11 +171,42 @@ public class Edit_Profile_act extends AppCompatActivity {
                             String ints=object.getString("u_intrest");
                             if(!ints.isEmpty()){
                                 String[] items=ints.split(",");
+                                MultiSelectToggleGroup multiDummy = findViewById(R.id.group_dummy);
                                 for(String itm : items){
                                     inters.add(itm);
-                                    Toast.makeText(Edit_Profile_act.this, ""+itm, Toast.LENGTH_SHORT).show();
+                                        final LabelToggle toggle = new LabelToggle(Edit_Profile_act.this);
+                                        toggle.setText(itm);
+                                        toggle.setEnabled(false);
+                                        toggle.setChecked(true);
+                                        multiDummy.addView(toggle);
+                                }
+                            }else{
+                                MultiSelectToggleGroup multiDummy = findViewById(R.id.group_dummy);
+                                String[] dummyText = getResources().getStringArray(R.array.dummy_text);
+                                for (String text : dummyText) {
+                                    final LabelToggle toggle = new LabelToggle(Edit_Profile_act.this);
+                                    toggle.setText(text);
+                                    multiDummy.addView(toggle);
+                                    toggle.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            if(toggle.isChecked()==true){
+                                                inters.add(""+toggle.getText());
+                                            }else if(toggle.isChecked()==false) {
+                                                if(inters.size()>0){
+                                                    for(int i=0;i<inters.size();i++){
+                                                        if(inters.get(i).equals(toggle.getText().toString()+",")){
+                                                            inters.remove(i);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    });
                                 }
                             }
+
+
                             if(!object.getString("u_image").isEmpty()){
                                 Glide.with(Edit_Profile_act.this).load(object.getString("u_image")).into(user_image);
                             }
