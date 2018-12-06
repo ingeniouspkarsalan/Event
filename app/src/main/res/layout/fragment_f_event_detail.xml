@@ -35,7 +35,7 @@
                     android:fontFamily="sans-serif-light"
                     android:lines="1"
                     android:text="Carnival Fastival"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/black"
                     android:textSize="30dp" />
 
                 <TextView
@@ -48,7 +48,7 @@
                     android:drawableStart="@drawable/ev_detail_date_ic"
                     android:fontFamily="sans-serif-light"
                     android:text=" 01-11-208"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <TextView
@@ -61,7 +61,7 @@
                     android:drawableStart="@drawable/ev_detail_page_time_ic"
                     android:fontFamily="sans-serif-light"
                     android:text=" 12:00 AM"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <TextView
@@ -74,7 +74,7 @@
                     android:layout_toEndOf="@id/ev_time_start"
                     android:fontFamily="sans-serif-light"
                     android:text="| 03:00 AM"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
             </RelativeLayout>
