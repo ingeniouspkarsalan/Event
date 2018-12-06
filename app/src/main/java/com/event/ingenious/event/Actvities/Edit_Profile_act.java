@@ -181,6 +181,16 @@ public class Edit_Profile_act extends AppCompatActivity {
                             locations.setText(placeName);
                             latitude=object.getDouble("u_latitude");
                             latitude=object.getDouble("u_logitude");
+                            if(!object.getString("u_gender").isEmpty()){
+                                String[] genders = getResources().getStringArray(R.array.gender);
+                                for(int i=0;i<genders.length;i++){
+                                    if (genders[i].equals(object.getString("u_gender"))){
+                                        gender.setSelection(i);
+                                    }
+                                }
+                            }
+
+
                             String ints=object.getString("u_intrest");
                             if(!ints.isEmpty()){
                                 String[] items=ints.split(",");
