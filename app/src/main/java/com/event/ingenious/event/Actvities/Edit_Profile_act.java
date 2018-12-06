@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Address;
+import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -17,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -41,15 +44,17 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import cz.msebera.android.httpclient.Header;
 import es.dmoral.toasty.Toasty;
 
 public class Edit_Profile_act extends AppCompatActivity {
-    EditText name, password, age, contact, locations;
+    EditText name, password, age, contact;
+    TextView locations;
     Spinner gender;
-    ImageView user_image;
+    ImageView user_image,get_location;
     SweetAlertDialog pd;
     private String photoPath = "";
     //take user id From Prefs
@@ -59,6 +64,8 @@ public class Edit_Profile_act extends AppCompatActivity {
     String placeName="";
     double latitude =0;
     double longitude=0;
+
+    MultiSelectToggleGroup multiDummy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +74,7 @@ public class Edit_Profile_act extends AppCompatActivity {
         toolbar.setTitle("Edit Profile");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        MultiSelectToggleGroup multiDummy = findViewById(R.id.group_dummy);
+        multiDummy = findViewById(R.id.group_dummy);
         String[] dummyText = getResources().getStringArray(R.array.dummy_text);
         for (String text : dummyText) {
             final LabelToggle toggle = new LabelToggle(this);
@@ -77,7 +84,7 @@ public class Edit_Profile_act extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     if(toggle.isChecked()==true){
-                        inters.add(""+toggle.getText()+",");
+                        inters.add(""+toggle.getText());
                     }else if(toggle.isChecked()==false) {
                         if(inters.size()>0){
                             for(int i=0;i<inters.size();i++){
@@ -102,6 +109,7 @@ public class Edit_Profile_act extends AppCompatActivity {
         age = findViewById(R.id.ages);
         contact = findViewById(R.id.contacts);
         locations = findViewById(R.id.locations);
+        get_location=findViewById(R.id.get_location);
         gender = findViewById(R.id.genders);
         String[] genders = getResources().getStringArray(R.array.gender);
         gender.setAdapter(new ArrayAdapter<String>(Edit_Profile_act.this, android.R.layout.simple_spinner_dropdown_item, genders));
@@ -118,17 +126,13 @@ public class Edit_Profile_act extends AppCompatActivity {
             }
         });
 
-        locations.setOnClickListener(new View.OnClickListener() {
+        get_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                InputMethodManager im = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                im.showSoftInput(locations, 0);
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
-                    // for activty
                     startActivityForResult(builder.build(Edit_Profile_act.this), PLACE_PICKER_REQUEST);
-                    // for fragment
-                    //startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -173,6 +177,18 @@ public class Edit_Profile_act extends AppCompatActivity {
                             password.setText(object.getString("u_pass"));
                             age.setText(object.getString("u_age"));
                             contact.setText(object.getString("u_contact"));
+                            placeName=object.getString("u_address");
+                            locations.setText(placeName);
+                            latitude=object.getDouble("u_latitude");
+                            latitude=object.getDouble("u_logitude");
+                            String ints=object.getString("u_intrest");
+                            if(!ints.isEmpty()){
+                                String[] items=ints.split(",");
+                                for(String itm : items){
+                                    inters.add(itm);
+                                    Toast.makeText(Edit_Profile_act.this, ""+itm, Toast.LENGTH_SHORT).show();
+                                }
+                            }
                             if(!object.getString("u_image").isEmpty()){
                                 Glide.with(Edit_Profile_act.this).load(object.getString("u_image")).into(user_image);
                             }
@@ -219,30 +235,37 @@ public class Edit_Profile_act extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
-        if (ImagePicker.shouldHandle(requestCode, resultCode, data))
-        {
-            Image image = ImagePicker.getFirstImageOrNull(data);
-            photoPath = image.getPath();
-            Bitmap bmImg = BitmapFactory.decodeFile(photoPath);
-            user_image.setImageBitmap(bmImg);
-            //name.setText(photoPath);
-        }
+            if (ImagePicker.shouldHandle(requestCode, resultCode, data))
+            {
+                Image image = ImagePicker.getFirstImageOrNull(data);
+                photoPath = image.getPath();
+                Bitmap bmImg = BitmapFactory.decodeFile(photoPath);
+                user_image.setImageBitmap(bmImg);
+                //name.setText(photoPath);
+            }
 
             if (resultCode == RESULT_OK) {
                 switch (requestCode) {
                     case PLACE_PICKER_REQUEST:
                         Place place = PlacePicker.getPlace(this, data);
-                        placeName = String.format("%s", place.getLocale().getCountry());
 
                         latitude = place.getLatLng().latitude;
                         longitude = place.getLatLng().longitude;
                         locations.setText(" "+placeName);
+
+                        Geocoder geocoder = new Geocoder(this);
+                            List<Address> addresses = geocoder.getFromLocation(place.getLatLng().latitude,place.getLatLng().longitude, 1);
+
+                        if (addresses.size() > 0) {
+                            placeName=addresses.get(0).getLocality() + " - " + addresses.get(0).getCountryName();
+                            locations.setText(placeName);
+                        }
                 }
             }
 
 
         }catch (Exception e){
-
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -362,7 +385,7 @@ public class Edit_Profile_act extends AppCompatActivity {
         if (id == R.id.update) {
             if(!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(password.getText().toString()) && !TextUtils.isEmpty(contact.getText().toString())
                     && !TextUtils.isEmpty(age.getText().toString())&& !TextUtils.isEmpty(gender.getSelectedItem().toString())
-                     &&inters.size()>0){
+                    &&inters.size()>0){
                 String ints="";
                 for(int i=0;i<inters.size();i++){
                     ints+=inters.get(i)+",";

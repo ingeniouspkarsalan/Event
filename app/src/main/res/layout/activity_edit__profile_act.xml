@@ -147,15 +147,30 @@
                  android:padding="5dp"
                  android:textSize="15dp"
                  />
-             <EditText
+             <LinearLayout
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:backgroundTint="@color/colorPrimary"
-                 android:id="@+id/locations"
-                 android:padding="5dp"
-                 android:descendantFocusability="blocksDescendants"
-                 android:textColor="@color/colorPrimary"
-                 />
+                 android:orientation="horizontal">
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:backgroundTint="@color/colorPrimary"
+                     android:id="@+id/locations"
+                     android:padding="5dp"
+                     android:text="Your Location"
+                     android:layout_weight="1"
+                     android:descendantFocusability="blocksDescendants"
+                     android:textColor="@color/transparent_cover"
+                     />
+                 <ImageView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:src="@drawable/ic_my_location_black_24dp"
+                     android:padding="5dp"
+                     android:id="@+id/get_location"
+                     />
+             </LinearLayout>
+
 
          </LinearLayout>
      </android.support.v7.widget.CardView>
