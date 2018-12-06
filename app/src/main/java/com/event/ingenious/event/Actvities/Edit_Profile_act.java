@@ -345,7 +345,7 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
     }
 
     // Declear the update Function
-    private void update(final String name,String pass, String conatct,String age,String gender,double latitude,double longitude,String address,ArrayList<String> intrest)
+    private void update(final String name,String pass, String conatct,String age,String gender,double latitude,double longitude,String address,String intrest)
     {
         final String id = Prefs.getString("user_id", "0");
         String email = Prefs.getString("user_email","0");
@@ -459,8 +459,12 @@ public class Edit_Profile_act extends AppCompatActivity implements GoogleApiClie
             if(!TextUtils.isEmpty(name.getText().toString()) && !TextUtils.isEmpty(password.getText().toString()) && !TextUtils.isEmpty(contact.getText().toString())
                     && !TextUtils.isEmpty(age.getText().toString())&& !TextUtils.isEmpty(gender.getSelectedItem().toString()) && !TextUtils.isEmpty(address_)
                      &&inters.size()>0){
+                String ints="";
+                for(int i=0;i<inters.size();i++){
+                    ints+=inters.get(i)+",";
+                }
                 update(name.getText().toString(),password.getText().toString(), contact.getText().toString(),age.getText().toString()
-                        ,gender.getSelectedItem().toString(),latitude,longitude,address_,inters);
+                        ,gender.getSelectedItem().toString(),latitude,longitude,address_,ints);
             }else{
                 Toast.makeText(this, "Fill up", Toast.LENGTH_SHORT).show();
             }
