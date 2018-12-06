@@ -11,13 +11,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.event.ingenious.event.Actvities.Create_Event;
 import com.event.ingenious.event.Actvities.Edit_Profile_act;
+import com.event.ingenious.event.Actvities.Home;
+import com.event.ingenious.event.Actvities.Login;
 import com.event.ingenious.event.Actvities.My_Event;
 import com.event.ingenious.event.Classes.Animation;
 import com.event.ingenious.event.R;
 import com.pixplicity.easyprefs.library.Prefs;
+
+import es.dmoral.toasty.Toasty;
 
 
 public class Event_profile_fragment extends Fragment {
@@ -59,6 +64,16 @@ public class Event_profile_fragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getContext(), Edit_Profile_act.class));
+                Animation.fade(getContext());
+            }
+        });
+        rv.findViewById(R.id.shape_logout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), Login.class);
+                Prefs.putBoolean("loginSuccess",false);
+                startActivity(i);
+                Toasty.success(getContext(), "Successfully Logout", Toast.LENGTH_SHORT).show();
                 Animation.fade(getContext());
             }
         });

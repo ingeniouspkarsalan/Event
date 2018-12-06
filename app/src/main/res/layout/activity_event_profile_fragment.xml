@@ -324,6 +324,7 @@
             </com.github.florent37.shapeofview.shapes.CircleView>
 
             <TextView
+                android:id="@+id/create_group_text_helper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Create Group"
@@ -332,6 +333,40 @@
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
                 android:layout_below="@id/shape_create_group"/>
+
+            <com.github.florent37.shapeofview.shapes.CircleView
+                android:id="@+id/shape_logout"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="13dp"
+                android:layout_below="@id/create_group_text_helper"
+                android:elevation="4dp"
+                android:background="@color/white"
+                app:shape_circle_borderColor="@color/colorPrimaryDark"
+                app:shape_circle_borderWidth="2dp">
+
+                <!-- YOUR CONTENT -->
+
+                <ImageView
+                    android:id="@+id/shape_logout_child"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    android:src="@drawable/logout"/>
+
+            </com.github.florent37.shapeofview.shapes.CircleView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                android:textSize="18dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/black"
+                android:layout_below="@id/shape_logout"/>
 
         </RelativeLayout>
 
